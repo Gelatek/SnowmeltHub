@@ -1,3 +1,4 @@
+-- could not obfuscate this shit.
 if _G.Reanimated == true then
 game.StarterGui:SetCore("SendNotification",{
 	Title = "Snowmelt Hub",
@@ -410,6 +411,7 @@ Mouse.Button1Up:Connect(function()
     MouseHolding = false --BP.Position = Character.Torso.Position
 end)
 local function attack()
+Bullet.RotVelocity = Vector3.new(60000,60000,60000)
     if shooting then
        if Mouse.Target ~= nil then
         BP.Position = Mouse.Hit.p
