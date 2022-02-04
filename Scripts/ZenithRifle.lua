@@ -6,7 +6,7 @@ game.StarterGui:SetCore("SendNotification",{
 })
 return
 end
-if not game.Players.LocalPlayer.Character:FindFirstChild('MeshPartAccessory') then
+if not game.Players.LocalPlayer.Character:FindFirstChild('Red SS') and not game.Players.LocalPlayer.Character:FindFirstChild('K4LAS Mercenary [Back]') then
 game.StarterGui:SetCore("SendNotification",{
 	Title = "Snowmelt Hub",
 	Text = "Missing Hat! Check discord for hats.",
