@@ -451,7 +451,7 @@ Bullet.RotVelocity = Vector3.new(60000,60000,60000)
 end
 
 flingloop = game:GetService("RunService").Heartbeat:Connect(attack)
-    game.Players.LocalPlayer.Character.Humanoid .Died:Connect(function()
+    game.Players.LocalPlayer.Character.Humanoid.Died:Connect(function()
     	flingloop:Disconnect()
     end) 
 end
