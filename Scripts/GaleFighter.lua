@@ -91,15 +91,18 @@ local MouseHolding = false
 local HighLight = Instance.new("SelectionBox", Bullet)
 HighLight.Adornee = Bullet
 local function attack()
+ matee = math.random(1,4)
     Bullet.RotVelocity = Vector3.new(60000,60000,60000)
-wait(0.5)
+wait(0.4)
+    if matee == 1 then
     Bullet.CFrame = ra.CFrame * CFrame.new(0,-0.3,0)
-wait(0.5)
+    elseif matee == 2 then
     Bullet.CFrame = rl.CFrame * CFrame.new(0,-0.3,0)
-wait(0.5)
+    elseif matee == 3 then
     Bullet.CFrame = la.CFrame * CFrame.new(0,-0.3,0)
-    wait(0.5)
+    elseif matee == 4 then
     Bullet.CFrame = ll.CFrame * CFrame.new(0,-0.3,0)
+    end
 end
 
 flingloop = game:GetService("RunService").Heartbeat:Connect(attack)
@@ -656,7 +659,7 @@ Effects = {
   },
   Wave = {
     Create = function(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
-      local prt = CFuncs.Part.Create(EffectModel, "Neon", 0, 0, brickcolor, "Effect", Vector3.new())
+      local prt = CFuncs.Part.Create(EffectModel, "Neon", 1, 1, brickcolor, "Effect", Vector3.new())
       prt.Anchored = true
       prt.CFrame = cframe
       local msh = CFuncs.Mesh.Create("SpecialMesh", prt, "FileMesh", "rbxassetid://20329976", Vector3.new(0, 0, 0), Vector3.new(x1 / 60, y1 / 60, z1 / 60))
@@ -779,228 +782,16 @@ function mesh(Mesh,part,meshtype,meshid,offset,scale)
 end
 
 function Magic(bonuspeed, type, pos, scale, value, color, MType)
-	local type = type
-	local rng = Instance.new("Part", char)
-	rng.Anchored = true
-	rng.BrickColor = color
-	rng.CanCollide = false
-	rng.FormFactor = 3
-	rng.Name = "Ring"
-	rng.Material = "Neon"
-	rng.Size = Vector3.new(1, 1, 1)
-	rng.Transparency = 0
-	rng.TopSurface = 0
-	rng.BottomSurface = 0
-	rng.CFrame = pos
-	local rngm = Instance.new("SpecialMesh", rng)
-	rngm.MeshType = MType
-	rngm.Scale = scale
-	local scaler2 = 1
-	if type == "Add" then
-		scaler2 = 1 * value
-	elseif type == "Divide" then
-		scaler2 = 1 / value
-	end
-	coroutine.resume(coroutine.create(function()
-		for i = 0, 10 / bonuspeed, 0.1 do
-			swait()
-			if type == "Add" then
-				scaler2 = scaler2 - 0.01 * value / bonuspeed
-			elseif type == "Divide" then
-				scaler2 = scaler2 - 0.01 / value * bonuspeed
-			end
-			rng.Transparency = rng.Transparency + 0.01 * bonuspeed
-			rngm.Scale = rngm.Scale + Vector3.new(scaler2 * bonuspeed, scaler2 * bonuspeed, scaler2 * bonuspeed)
-		end
-		rng:Destroy()
-	end))
+
 end
 
-function Eviscerate(dude)
-	if dude.Name ~= char then
-		local bgf = IT("BodyGyro", dude.Head)
-		bgf.CFrame = bgf.CFrame * CFrame.fromEulerAnglesXYZ(Rad(-90), 0, 0)
-		local val = IT("BoolValue", dude)
-		val.Name = "IsHit"
-		local ds = coroutine.wrap(function()
-			dude:WaitForChild("Head"):BreakJoints()
-			wait(0.5)
-			target = nil
-			coroutine.resume(coroutine.create(function()
-				for i, v in pairs(dude:GetChildren()) do
-					if v:IsA("Accessory") then
-						v:Destroy()
-					end
-					if v:IsA("Humanoid") then
-						v:Destroy()
-					end
-					if v:IsA("CharacterMesh") then
-						v:Destroy()
-					end
-					if v:IsA("Model") then
-						v:Destroy()
-					end
-					if v:IsA("Part") or v:IsA("MeshPart") then
-						for x, o in pairs(v:GetChildren()) do
-							if o:IsA("Decal") then
-								o:Destroy()
-							end
-						end
-						coroutine.resume(coroutine.create(function()
-							v.Material = "Neon"
-							v.CanCollide = false
-							local PartEmmit1 = IT("ParticleEmitter", v)
-							PartEmmit1.LightEmission = 1
-							PartEmmit1.Texture = "rbxassetid://284205403"
-							PartEmmit1.Color = ColorSequence.new(maincolor.Color)
-							PartEmmit1.Rate = 150
-							PartEmmit1.Lifetime = NumberRange.new(1)
-							PartEmmit1.Size = NumberSequence.new({
-								NumberSequenceKeypoint.new(0, 0.75, 0),
-								NumberSequenceKeypoint.new(1, 0, 0)
-							})
-							PartEmmit1.Transparency = NumberSequence.new({
-								NumberSequenceKeypoint.new(0, 0, 0),
-								NumberSequenceKeypoint.new(1, 1, 0)
-							})
-							PartEmmit1.Speed = NumberRange.new(0, 0)
-							PartEmmit1.VelocitySpread = 30000
-							PartEmmit1.Rotation = NumberRange.new(-500, 500)
-							PartEmmit1.RotSpeed = NumberRange.new(-500, 500)
-							local BodPoss = IT("BodyPosition", v)
-							BodPoss.P = 3000
-							BodPoss.D = 1000
-							BodPoss.maxForce = Vector3.new(50000000000, 50000000000, 50000000000)
-							BodPoss.position = v.Position + Vector3.new(Mrandom(-15, 15), Mrandom(-15, 15), Mrandom(-15, 15))
-							v.Color = maincolor.Color
-							coroutine.resume(coroutine.create(function()
-								for i = 0, 49 do
-									swait(1)
-									v.Transparency = v.Transparency + 0.08
-								end
-								wait(0.5)
-								PartEmmit1.Enabled = false
-								wait(3)
-								v:Destroy()
-								dude:Destroy()
-							end))
-						end))
-					end
-				end
-			end))
-		end)
-		ds()
-	end
-end
 
-function FindNearestHead(Position, Distance, SinglePlayer)
-	if SinglePlayer then
-		return Distance > (SinglePlayer.Torso.CFrame.p - Position).magnitude
-	end
-	local List = {}
-	for i, v in pairs(workspace:GetChildren()) do
-		if v:IsA("Model") and v:findFirstChild("Head") and v ~= char and Distance >= (v.Head.Position - Position).magnitude then
-			table.insert(List, v)
-		end
-	end
-	return List
-end
+
 
 function Aura(bonuspeed, FastSpeed, type, pos, x1, y1, z1, value, color, outerpos, MType)
-	local type = type
-	local rng = Instance.new("Part", char)
-	rng.Anchored = true
-	rng.BrickColor = color
-	rng.CanCollide = false
-	rng.FormFactor = 3
-	rng.Name = "Ring"
-	rng.Material = "Neon"
-	rng.Size = Vector3.new(1, 1, 1)
-	rng.Transparency = 0
-	rng.TopSurface = 0
-	rng.BottomSurface = 0
-	rng.CFrame = pos
-	rng.CFrame = rng.CFrame + rng.CFrame.lookVector * outerpos
-	local rngm = Instance.new("SpecialMesh", rng)
-	rngm.MeshType = MType
-	rngm.Scale = Vector3.new(x1, y1, z1)
-	local scaler2 = 1
-	local speeder = FastSpeed
-	if type == "Add" then
-		scaler2 = 1 * value
-	elseif type == "Divide" then
-		scaler2 = 1 / value
-	end
-	coroutine.resume(coroutine.create(function()
-		for i = 0, 10 / bonuspeed, 0.1 do
-			swait()
-			if type == "Add" then
-				scaler2 = scaler2 - 0.01 * value / bonuspeed
-			elseif type == "Divide" then
-				scaler2 = scaler2 - 0.01 / value * bonuspeed
-			end
-			speeder = speeder - 0.01 * FastSpeed * bonuspeed
-			rng.CFrame = rng.CFrame + rng.CFrame.lookVector * speeder * bonuspeed
-			rng.Transparency = rng.Transparency + 0.01 * bonuspeed
-			rngm.Scale = rngm.Scale + Vector3.new(scaler2 * bonuspeed, scaler2 * bonuspeed, 0)
-		end
-		rng:Destroy()
-	end))
+
 end
 
-function SoulSteal(dude)
-if dude.Name ~= char then
-local bgf = IT("BodyGyro", dude.Head)
-bgf.CFrame = bgf.CFrame * CFrame.fromEulerAnglesXYZ(Rad(-90), 0, 0)
-local val = IT("BoolValue", dude)
-val.Name = "IsHit"
-local torso = (dude:FindFirstChild'Head' or dude:FindFirstChild'Torso' or dude:FindFirstChild'UpperTorso' or dude:FindFirstChild'LowerTorso' or dude:FindFirstChild'HumanoidRootPart')
-local soulst = coroutine.wrap(function()
-local soul = Instance.new("Part",dude)
-soul.Size = Vector3.new(1,1,1)
-soul.CanCollide = false
-soul.Anchored = false
-soul.Position = torso.Position
-soul.Transparency = 1
-local PartEmmit1 = IT("ParticleEmitter", soul)
-PartEmmit1.LightEmission = 1
-PartEmmit1.Texture = "rbxassetid://569507414"
-PartEmmit1.Color = ColorSequence.new(maincolor.Color)
-PartEmmit1.Rate = 250
-PartEmmit1.Lifetime = NumberRange.new(1.6)
-PartEmmit1.Size = NumberSequence.new({
-	NumberSequenceKeypoint.new(0, 1, 0),
-	NumberSequenceKeypoint.new(1, 0, 0)
-})
-PartEmmit1.Transparency = NumberSequence.new({
-	NumberSequenceKeypoint.new(0, 0, 0),
-	NumberSequenceKeypoint.new(1, 1, 0)
-})
-PartEmmit1.Speed = NumberRange.new(0, 0)
-PartEmmit1.VelocitySpread = 30000
-PartEmmit1.Rotation = NumberRange.new(-360, 360)
-PartEmmit1.RotSpeed = NumberRange.new(-360, 360)
-local BodPoss = IT("BodyPosition", soul)
-BodPoss.P = 3000
-BodPoss.D = 1000
-BodPoss.maxForce = Vector3.new(50000000000, 50000000000, 50000000000)
-BodPoss.position = torso.Position + Vector3.new(Mrandom(-15, 15), Mrandom(-15, 15), Mrandom(-15, 15))
-wait(1.6)
-soul.Touched:connect(function(hit)
-	if hit.Parent == char then
-	soul:Destroy()
-	end
-end)
-wait(1.2)
-while soul do
-	swait()
-	PartEmmit1.Color = ColorSequence.new(maincolor.Color)
-	BodPoss.Position = tors.Position
-end
-end)
-	soulst()
-	end
-end
 
 
 
@@ -1010,8 +801,7 @@ end
 
 
 
-
-		function CreatePart(Parent, Material, Reflectance, Transparency, BColor, Name, Size)
+function CreatePart(Parent, Material, Reflectance, Transparency, BColor, Name, Size)
 	local Part = Create("Part"){
 		Parent = Parent,
 		Reflectance = Reflectance,
@@ -1043,151 +833,36 @@ end
 		
 		
 function BlockEffect(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay, Type)
-	local prt = CreatePart(workspace, "Neon", 0, 0, brickcolor, "Effect", Vector3.new())
-	prt.Anchored = true
-	prt.CFrame = cframe
-	local msh = CreateMesh("BlockMesh", prt, "", "", Vector3.new(0, 0, 0), Vector3.new(x1, y1, z1))
-	game:GetService("Debris"):AddItem(prt, 10)
-	if Type == 1 or Type == nil then
-		table.insert(Effects, {
-			prt,
-			"Block1",
-			delay,
-			x3,
-			y3,
-			z3,
-			msh
-		})
-	elseif Type == 2 then
-		table.insert(Effects, {
-			prt,
-			"Block2",
-			delay,
-			x3,
-			y3,
-			z3,
-			msh
-		})
-	end
+
 end
 
 function SphereEffect(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
-	local prt = CreatePart(workspace, "Neon", 0, 0, brickcolor, "Effect", Vector3.new())
-	prt.Anchored = true
-	prt.CFrame = cframe
-	local msh = CreateMesh("SpecialMesh", prt, "Sphere", "", Vector3.new(0, 0, 0), Vector3.new(x1, y1, z1))
-	game:GetService("Debris"):AddItem(prt, 10)
-	table.insert(Effects, {
-		prt,
-		"Cylinder",
-		delay,
-		x3,
-		y3,
-		z3,
-		msh
-	})
+
 end
 
 function RingEffect(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
-local prt=CreatePart(workspace,"Neon",0,0,brickcolor,"Effect",vt(.5,.5,.5))--part(3,workspace,"SmoothPlastic",0,0,brickcolor,"Effect",vt(0.5,0.5,0.5))
-prt.Anchored=true
-prt.CFrame=cframe
-msh=CreateMesh("SpecialMesh",prt,"FileMesh","http://www.roblox.com/asset/?id=3270017",vt(0,0,0),vt(x1,y1,z1))
-game:GetService("Debris"):AddItem(prt,2)
-coroutine.resume(coroutine.create(function(Part,Mesh,num) 
-for i=0,1,delay do
-swait()
-Part.Transparency=i
-Mesh.Scale=Mesh.Scale+vt(x3,y3,z3)
-end
-Part.Parent=nil
-end),prt,msh,(math.random(0,1)+math.random())/5)
+
 end
 
 function CylinderEffect(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
-	local prt = CreatePart(workspace, "SmoothPlastic", 0, 0, brickcolor, "Effect", Vector3.new())
-	prt.Anchored = true
-	prt.CFrame = cframe
-	local msh = CreateMesh("CylinderMesh", prt, "", "", Vector3.new(0, 0, 0), Vector3.new(x1, y1, z1))
-	game:GetService("Debris"):AddItem(prt, 10)
-	table.insert(Effects, {
-		prt,
-		"Cylinder",
-		delay,
-		x3,
-		y3,
-		z3,
-		msh
-	})
+
 end
 
 function WaveEffect(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
-	local prt = CreatePart(workspace, "Neon", 0, 0, brickcolor, "Effect", Vector3.new())
-	prt.Anchored = true
-	prt.CFrame = cframe
-	local msh = CreateMesh("SpecialMesh", prt, "FileMesh", "rbxassetid://20329976", Vector3.new(0, 0, 0), Vector3.new(x1, y1, z1))
-	game:GetService("Debris"):AddItem(prt, 10)
-	table.insert(Effects, {
-		prt,
-		"Cylinder",
-		delay,
-		x3,
-		y3,
-		z3,
-		msh
-	})
+
 end
 
 function SpecialEffect(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
-	local prt = CreatePart(workspace, "Neon", 0, 0, brickcolor, "Effect", Vector3.new())
-	prt.Anchored = true
-	prt.CFrame = cframe
-	local msh = CreateMesh("SpecialMesh", prt, "FileMesh", "rbxassetid://24388358", Vector3.new(0, 0, 0), Vector3.new(x1, y1, z1))
-	game:GetService("Debris"):AddItem(prt, 10)
-	table.insert(Effects, {
-		prt,
-		"Cylinder",
-		delay,
-		x3,
-		y3,
-		z3,
-		msh
-	})
+
 end
 
 
 function MoonEffect(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
-	local prt = CreatePart(workspace, "Neon", 0, 0, brickcolor, "Effect", Vector3.new())
-	prt.Anchored = true
-	prt.CFrame = cframe
-	local msh = CreateMesh("SpecialMesh", prt, "FileMesh", "rbxassetid://259403370", Vector3.new(0, 0, 0), Vector3.new(x1, y1, z1))
-	game:GetService("Debris"):AddItem(prt, 10)
-	table.insert(Effects, {
-		prt,
-		"Cylinder",
-		delay,
-		x3,
-		y3,
-		z3,
-		msh
-	})
+
 end
 
 function HeadEffect(brickcolor, cframe, x1, y1, z1, x3, y3, z3, delay)
-	local prt = CreatePart(workspace, "Neon", 0, 0, brickcolor, "Effect", Vector3.new())
-	prt.Anchored = true
-	prt.CFrame = cframe
-	local msh = CreateMesh("SpecialMesh", prt, "Head", "", Vector3.new(0, 0, 0), Vector3.new(x1, y1, z1))
-	game:GetService("Debris"):AddItem(prt, 10)
-	table.insert(Effects, {
-		prt,
-		"Cylinder",
-		delay,
-		x3,
-		y3,
-		z3,
-		msh
-	})
+	
 end
 
 function BreakEffect(brickcolor, cframe, x1, y1, z1)
@@ -1550,7 +1225,6 @@ function attackfour()
     
     attack = true
             so("http://www.roblox.com/asset/?id=1452040709", RightLeg, 3, 1)
-     WaveEffect(BrickColor.new("White"), root.CFrame * CFrame.new(0, -1, 0) * euler(0, math.random(-50, 50), 0), 1, 1, 1, 1, 0.5, 1, 0.05)
               for i = 0, 5.14, 0.1 do
         swait()
         SphereEffect(BrickColor.new("White"),rl.CFrame*angles(math.random(-50,50),math.random(-50,50),math.random(-50,50)),1,5,1,.05,4,.05,0.03)
@@ -1995,7 +1669,7 @@ end
 
           		    		    
         u =   mouse.KeyDown:connect(function(key)
-          	if key == 'r' and combohits >= 150 then
+          	if key == 'r' and combohits >= 9999999999 then
 		    ultra = true
 		    SphereEffect(BrickColor.new("Really red"),tors.CFrame*angles(math.random(-360,360),math.random(-360,360),math.random(-360,360)),1,5,1,15,15,15,0.04)
 		    end
